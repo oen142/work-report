@@ -15,7 +15,12 @@ public class MemberStep {
         return response.as(TokenResponse.class);
     }
 
-    private static ExtractableResponse<Response> 로그인_요청(String username, String email, String password) {
+    public static ExtractableResponse<Response> 로그인_요청(String username, String email,
+        String password) {
         return null;
+    }
+
+    public static ExtractableResponse<Response> 회원가입_요청(String username, String password,
+        String phoneNumber, String roleType) {
     }
 }

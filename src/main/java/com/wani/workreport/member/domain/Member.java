@@ -56,14 +56,23 @@ public class Member extends BaseEntity {
         return new Member(name, phoneNumber, password, Role.OWNER);
     }
 
+    public void updateInfo(String name, String phoneNumber) {
+        validateName(name);
+
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
     private static void validateName(String name) {
 
     }
 
-    public void updateInfo(String name, String password) {
-        validateName(name);
-
-        this.name = name;
+    public void updatePassword(String password) {
+        validatePassword(password);
         this.password = password;
+    }
+
+    private void validatePassword(String password) {
+
     }
 }
