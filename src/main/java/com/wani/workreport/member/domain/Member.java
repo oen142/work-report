@@ -22,51 +22,48 @@ public class Member extends BaseEntity {
     @Column(length = 30)
     private String name;
 
-    @Column(length = 255)
-    private String email;
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
     @Lob
     private String password;
 
-    private Integer age;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public Member(String name, String email, String password, int age) {
+    public Member(Long id, String name, String phoneNumber, String password,
+        Role role) {
+        this.id = id;
         this.name = name;
-        this.email = email;
+        this.phoneNumber = phoneNumber;
         this.password = password;
-        this.age = age;
+        this.role = role;
     }
 
-    public static Member of(String name, String email, String password, int age) {
-        validateName(name);
-        validateAge(age);
-        validateEmail(email);
+    public Member(String name, String phoneNumber, String password,
+        Role role) {
+        this(null, name, phoneNumber, password, role);
+    }
 
-        return new Member(name, email, password, age);
+    public static Member ofWorker(String name, String password, String phoneNumber) {
+        validateName(name);
+        return new Member(name, phoneNumber, password, Role.WORKER);
+    }
+
+    public static Member ofOwner(String name, String password, String phoneNumber) {
+        validateName(name);
+
+        return new Member(name, phoneNumber, password, Role.OWNER);
     }
 
     private static void validateName(String name) {
 
     }
 
-    private static void validateEmail(String email) {
-
-    }
-
-    private static void validateAge(int age) {
-        if(age < 8 || age > 70){
-            throw new InvalidMemberInfo("나이가 적절치 않습니다.");
-        }
-    }
-
-    public void updateInfo(String name, String email, String password, int age) {
+    public void updateInfo(String name, String password) {
         validateName(name);
-        validateAge(age);
-        validateEmail(email);
 
         this.name = name;
-        this.email = email;
         this.password = password;
-        this.age = age;
     }
 }
