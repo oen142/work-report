@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
+import java.util.Objects;
 
 @Embeddable
 @NoArgsConstructor
@@ -21,4 +22,17 @@ public class PhoneNumber {
         this.last = last;
     }
 
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PhoneNumber that = (PhoneNumber) o;
+        return Objects.equals(getFirst(), that.getFirst()) && Objects.equals(getMiddle(), that.getMiddle()) && Objects.equals(getLast(), that.getLast());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getFirst(), getMiddle(), getLast());
+    }
 }
